@@ -6,33 +6,60 @@ import zipfile
 from flask import Flask, jsonify, render_template, request, send_file
 from werkzeug.utils import secure_filename
 
-# --- Flask App Initialization ---
 app = Flask(__name__)
 
-# --- Configuration ---
-# Define the allowed file extension.
 ALLOWED_EXTENSIONS = {"docx"}
 
 
-# --- Helper Function ---
 def is_allowed_file(filename):
-    """Checks if a filename has an allowed extension."""
+    """Checks if a filename has an allowed extension.
+
+    Args:
+        filename: The name of the file to check.
+
+    Returns:
+        True if the filename has an allowed extension, False otherwise.
+    """
+
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-# --- Main Routes ---
+@app.route("/static/<path:filename>")
+def serve_static_assets(filename):
+
+    try:
+        # send_from_directory is a secure way to send files from a directory.
+        # It prevents users from accessing files outside the specified folder.
+        return send_from_directory("static", filename)
+    except FileNotFoundError:
+        # Optional: handle the case where the file doesn't exist.
+        return "File not found", 404
+
+
 @app.route("/")
 def index():
-    """Serves the main HTML user interface."""
+    """Serves the main HTML user interface.
+
+    Returns:
+        The rendered HTML template for the main page.
+    """
+
     return render_template("index.html")
 
 
 @app.route("/convert", methods=["POST"])
 def convert_files():
+    """Handles file uploads, conversion, and response.
+
+    This function processes POST requests containing one or more '.docx' files.
+    It converts each valid file to HTML using Pandoc, zips the resulting
+    HTML files, and sends the zip archive to the client.
+
+    Returns:
+        A zip file containing the converted HTML documents on success,
+        or a JSON error message on failure.
     """
-    Handles file uploads, conversion using Pandoc, zipping, and sending the result.
-    """
-    # 1. --- Basic Request Validation ---
+
     if "files[]" not in request.files:
         return jsonify({"error": "No file part in the request"}), 400
 
@@ -40,26 +67,19 @@ def convert_files():
     if not files or all(f.filename == "" for f in files):
         return jsonify({"error": "No selected files"}), 400
 
-    # 2. --- Create a Secure Temporary Directory to Work In ---
     with tempfile.TemporaryDirectory() as tmpdir:
-        processed_html_files = (
-            []
-        )  # To keep track of the successfully converted HTML files.
+        processed_html_files = []
 
         for file in files:
-            # 3. --- Validate and Save Each File ---
             if file and is_allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 input_path = os.path.join(tmpdir, filename)
                 file.save(input_path)
 
-                # 4. --- Prepare for Pandoc Conversion ---
                 base_name = os.path.splitext(filename)[0]
                 html_output_path = os.path.join(tmpdir, f"{base_name}.html")
 
-                # 5. --- Run Pandoc as a Subprocess ---
                 try:
-                    # Use --self-contained to embed all images directly into the HTML file.
                     command = [
                         "pandoc",
                         input_path,
@@ -91,7 +111,6 @@ def convert_files():
                         500,
                     )
 
-        # 6. --- Check if Any Files Were Processed ---
         if not processed_html_files:
             return (
                 jsonify(
@@ -102,14 +121,12 @@ def convert_files():
                 400,
             )
 
-        # 7. --- Zip the Resulting HTML Files ---
         zip_path = os.path.join(tmpdir, "converted_documents.zip")
         with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zipf:
             for html_file_path in processed_html_files:
                 arcname = os.path.basename(html_file_path)
                 zipf.write(html_file_path, arcname)
 
-        # 8. --- Send the Zip File to the User for Download ---
         return send_file(
             zip_path,
             mimetype="application/zip",
@@ -118,7 +135,6 @@ def convert_files():
         )
 
 
-# --- Main Execution ---
 if __name__ == "__main__":
-    # Remember to set up a 'templates' folder with your 'index.html' file inside.
+
     app.run(debug=True, port=5000)
