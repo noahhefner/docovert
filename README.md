@@ -4,10 +4,10 @@
       
 <h1 align="center">Docovert</h1>
 
+A simple web application to convert one or more .docx files into self-contained HTML files, with all images embedded directly into the document. The resulting files are bundled into a single .zip archive for easy download.
+
 > [!WARNING]  
 > This project is 100% vide-coded and not suitable for production.
-
-A simple web application to convert one or more .docx files into self-contained HTML files, with all images embedded directly into the document. The resulting files are bundled into a single .zip archive for easy download.
 
 ![screenshot 1](demo-1.png)
 
