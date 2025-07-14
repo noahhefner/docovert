@@ -9,7 +9,7 @@ A simple web application to convert one or more .docx files into self-contained 
 > [!WARNING]  
 > This project is 100% vide-coded and not suitable for production.
 
-![screenshot 1](demo-1.png)
+![screenshot 1](demo.png)
 
 ## Features
 

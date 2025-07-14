@@ -19,13 +19,15 @@ setup:
 
 # Format Python code
 format:
-	@echo "Running isort to sort imports..."
+	@echo "Running isort..."
 	./.venv/bin/isort .
 
-	@echo "Running autoflake to remove unused imports and variables..."
+	@echo "Running autoflake..."
 	./.venv/bin/autoflake --in-place --remove-all-unused-imports --recursive .
 
-	@echo "Running black to format code..."
+	@echo "Running black formatter..."
 	./.venv/bin/black .
+
+	@echo "Running Prettier..."
 
 	@echo "Formatting complete."
