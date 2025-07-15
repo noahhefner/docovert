@@ -5,7 +5,7 @@
 # Run the server
 run:
 	@echo "Running Docovert..."
-	.venv/bin/flask --app main run
+	.venv/bin/flask --debug --app main run
 
 # Install dependencies and tools
 setup:
@@ -29,5 +29,6 @@ format:
 	./.venv/bin/black .
 
 	@echo "Running Prettier..."
+	npx prettier . --write
 
 	@echo "Formatting complete."
