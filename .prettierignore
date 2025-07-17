@@ -2,7 +2,8 @@
 node_modules
 .venv
 static
-build
-coverage
 package.json
 package-lock.json
+.prettierignore
+.prettierrc
+.python-version

@@ -5,7 +5,7 @@
 # Run the server
 run:
 	@echo "Running Docovert..."
-	.venv/bin/flask --debug --app main run
+	uv run flask --app flaskr run --debug
 
 # Install dependencies and tools
 setup:
@@ -20,13 +20,13 @@ setup:
 # Format Python code
 format:
 	@echo "Running isort..."
-	./.venv/bin/isort .
+	uv run isort .
 
 	@echo "Running autoflake..."
-	./.venv/bin/autoflake --in-place --remove-all-unused-imports --recursive .
+	uv run autoflake --in-place --remove-all-unused-imports --recursive .
 
 	@echo "Running black formatter..."
-	./.venv/bin/black .
+	uv run black .
 
 	@echo "Running Prettier..."
 	npx prettier . --write

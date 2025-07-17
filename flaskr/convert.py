@@ -3,51 +3,16 @@ import subprocess
 import tempfile
 import zipfile
 
-from flask import Flask, jsonify, render_template, request, send_file
+from flask import Blueprint, jsonify, request, send_file
 from werkzeug.utils import secure_filename
-
-app = Flask(__name__)
 
 ALLOWED_EXTENSIONS = {"docx"}
 
 
-def is_allowed_file(filename):
-    """Checks if a filename has an allowed extension.
-
-    Args:
-        filename: The name of the file to check.
-
-    Returns:
-        True if the filename has an allowed extension, False otherwise.
-    """
-
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+bp = Blueprint("convert", __name__, url_prefix="/convert")
 
 
-@app.route("/static/<path:filename>")
-def serve_static_assets(filename):
-
-    try:
-        # send_from_directory is a secure way to send files from a directory.
-        # It prevents users from accessing files outside the specified folder.
-        return send_from_directory("static", filename)
-    except FileNotFoundError:
-        # Optional: handle the case where the file doesn't exist.
-        return "File not found", 404
-
-
-@app.route("/")
-def index():
-    """Serves the main HTML user interface.
-
-    Returns:
-        The rendered HTML template for the main page.
-    """
-
-    return render_template("index.html")
-
-
-@app.route("/convert", methods=["POST"])
+@bp.route("/", methods=["POST"])
 def convert_files():
     """Handles file uploads, conversion, and response.
 
@@ -135,6 +100,14 @@ def convert_files():
         )
 
 
-if __name__ == "__main__":
+def is_allowed_file(filename):
+    """Checks if a filename has an allowed extension.
 
-    app.run(debug=True, port=5000)
+    Args:
+        filename: The name of the file to check.
+
+    Returns:
+        True if the filename has an allowed extension, False otherwise.
+    """
+
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
