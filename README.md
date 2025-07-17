@@ -28,7 +28,7 @@ A simple web application to convert one or more .docx files into self-contained 
 
 ## Prerequisites
 
-Before you begin, you must have the following installed on your system:
+Ensure the following tools are installed:
 
 - Python 3.8+
 - uv
@@ -38,7 +38,7 @@ Before you begin, you must have the following installed on your system:
 
 ## Setup and Installation
 
-Follow these steps to get the application running locally using uv.
+Follow these steps to get the application running locally.
 
 1. Clone the Repository
 
@@ -61,7 +61,7 @@ make run
 
 4. Access the Web App
 
-Open your web browser and navigate to `http://127.0.0.1:5000`.
+Navigate to `http://127.0.0.1:5000` in a web browser.
 
 ## Code Formatting
 
@@ -75,5 +75,5 @@ make format
 
 - Support for more input formats (e.g., `.md`, `.rtf`, `.odt`).
 - Add a real-time progress bar for uploads and conversions.
-- If only one file is converted, download it directly as .html instead of a .zip.
+- If only one file is converted, download it directly as `.html` instead of a `.zip`.
 - Add deployment instructions (e.g., using Gunicorn and Nginx).
