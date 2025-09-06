@@ -5,6 +5,8 @@ build/
 dist/
 wheels/
 *.egg-info
+instance/
+.ruff_cache/
 
 # Virtual environments
 .venv

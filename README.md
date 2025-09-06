@@ -39,7 +39,7 @@ A simple web application to convert one or more .docx files into self-contained 
 
 Ensure the following tools are installed:
 
-- Python 3.8+
+- Python 3.12+
 - uv
 - Pandoc
 - make
@@ -70,7 +70,25 @@ make run
 
 4. Access the Web App
 
-Navigate to `http://127.0.0.1:5000` in a web browser.
+Navigate to `http://localhost:5000` in a web browser.
+
+## Run With Docker
+
+1. Build the Docker image
+
+```sh
+make build
+```
+
+2. Run the image
+
+```sh
+make run-docker
+```
+
+3. Access the Web App
+
+Navigate to `http://localhost:8080` in a web browser.
 
 ## Code Formatting
 
@@ -85,4 +103,3 @@ make format
 - Support for more input formats (e.g., `.md`, `.rtf`, `.odt`).
 - Add a real-time progress bar for uploads and conversions.
 - If only one file is converted, download it directly as `.html` instead of a `.zip`.
-- Add deployment instructions (e.g., using Gunicorn and Nginx).

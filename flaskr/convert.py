@@ -4,7 +4,7 @@ import tempfile
 import zipfile
 
 from flask import Blueprint, jsonify, request, send_file
-from werkzeug.utils import secure_filename
+from pathvalidate import sanitize_filename
 
 ALLOWED_EXTENSIONS = {"docx"}
 
@@ -37,7 +37,7 @@ def convert_files():
 
         for file in files:
             if file and is_allowed_file(file.filename):
-                filename = secure_filename(file.filename)
+                filename = sanitize_filename(file.filename)
                 input_path = os.path.join(tmpdir, filename)
                 file.save(input_path)
 

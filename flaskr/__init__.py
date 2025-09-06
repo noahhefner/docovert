@@ -4,7 +4,6 @@ from flask import Flask, render_template
 
 
 def create_app(test_config=None):
-
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
 
@@ -23,7 +22,6 @@ def create_app(test_config=None):
 
     @app.route("/static/<path:filename>")
     def serve_static_assets(filename):
-
         try:
             # send_from_directory is a secure way to send files from a directory.
             # It prevents users from accessing files outside the specified folder.
