@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Docovert</title>
-    <link rel="icon" type="image/png" href="/static/img/logo.png">
+    <link rel="icon" type="image/png" href="/static/img/logo.png" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
@@ -16,9 +16,9 @@
           alt="Company Logo"
           class="w-32 h-24 mx-auto mb-4"
         />
-        <h1 class="text-3xl font-bold text-gray-800">Word to HTML Converter</h1>
+        <h1 class="text-3xl font-bold text-gray-800">Docovert</h1>
         <p class="text-gray-500 mt-2">
-          Upload one or more Word documents to convert them into HTML.
+          Upload one or more documents to convert them into HTML.
         </p>
       </div>
 
@@ -54,7 +54,13 @@
             </span>
           </div>
         </label>
-        <input type="file" id="file-input" class="hidden" multiple />
+        <input
+          type="file"
+          id="file-input"
+          class="hidden"
+          accept=".bib,.biblatex,.bits,.cmark,.creole,.csljson,.csv,.djot,.xml,.docbook,.docx,.dokuwiki,.enex,.epub,.fb2,.gfm,.haddock,.html,.ipynb,.jats,.jira,.json,.tex,.man,.md,.markdown,.mdown,.mmd,.mdown,.md_strict,.mdoc,.mediawiki,.muse,.odt,.opml,.org,.pod,.ris,.rst,.rtf,.t2t,.textile,.tikiwiki,.tsv,.twiki,.typst,.vimwiki,.xml"
+          multiple
+        />
       </div>
 
       <!-- Files Preview and Actions Section (Initially Hidden) -->
