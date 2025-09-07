@@ -1,4 +1,3 @@
-# Python-generated files
 __pycache__/
 *.py[oc]
 build/
@@ -7,9 +6,5 @@ wheels/
 *.egg-info
 instance/
 .ruff_cache/
-
-# Virtual environments
 .venv
-
-# Node
 node_modules/

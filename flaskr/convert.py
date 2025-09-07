@@ -1,13 +1,10 @@
 import os
-import subprocess
 import tempfile
 import zipfile
 
 from flask import Blueprint, jsonify, request, send_file
 from pathvalidate import sanitize_filename
-
-ALLOWED_EXTENSIONS = {"docx"}
-
+import pypandoc
 
 bp = Blueprint("convert", __name__, url_prefix="/convert")
 
@@ -16,8 +13,8 @@ bp = Blueprint("convert", __name__, url_prefix="/convert")
 def convert_files():
     """Handles file uploads, conversion, and response.
 
-    This function processes POST requests containing one or more '.docx' files.
-    It converts each valid file to HTML using Pandoc, zips the resulting
+    This function processes POST requests containing one or more files.
+    It attempts to convert each file to HTML using pypandoc, zips the resulting
     HTML files, and sends the zip archive to the client.
 
     Returns:
@@ -36,7 +33,7 @@ def convert_files():
         processed_html_files = []
 
         for file in files:
-            if file and is_allowed_file(file.filename):
+            if file and file.filename:
                 filename = sanitize_filename(file.filename)
                 input_path = os.path.join(tmpdir, filename)
                 file.save(input_path)
@@ -45,32 +42,34 @@ def convert_files():
                 html_output_path = os.path.join(tmpdir, f"{base_name}.html")
 
                 try:
-                    command = [
-                        "pandoc",
+                    # Convert file to HTML with pypandoc
+                    output = pypandoc.convert_file(
                         input_path,
-                        "-o",
-                        html_output_path,
-                        "--standalone",
-                        "--self-contained",
-                    ]
-                    subprocess.run(command, check=True, capture_output=True, text=True)
+                        "html",
+                        extra_args=["--embed-resources", "--standalone"],
+                    )
+                    # Write the HTML output to file
+                    with open(html_output_path, "w", encoding="utf-8") as f:
+                        f.write(output)
+
                     processed_html_files.append(html_output_path)
 
-                except FileNotFoundError:
+                except OSError:
                     return (
                         jsonify(
                             {
-                                "error": "Pandoc is not installed or not in the system's PATH."
+                                "error": "Pandoc is not installed or not accessible. "
+                                "Install it or run pypandoc.download_pandoc()."
                             }
                         ),
                         500,
                     )
-                except subprocess.CalledProcessError as e:
+                except RuntimeError as e:
                     return (
                         jsonify(
                             {
-                                "error": f"Pandoc failed to convert {filename}",
-                                "details": e.stderr,
+                                "error": f"Conversion failed for {filename}",
+                                "details": str(e),
                             }
                         ),
                         500,
@@ -78,11 +77,7 @@ def convert_files():
 
         if not processed_html_files:
             return (
-                jsonify(
-                    {
-                        "error": "No valid .docx files were provided or conversion failed."
-                    }
-                ),
+                jsonify({"error": "No files were successfully converted."}),
                 400,
             )
 
@@ -98,16 +93,3 @@ def convert_files():
             as_attachment=True,
             download_name="converted_documents.zip",
         )
-
-
-def is_allowed_file(filename):
-    """Checks if a filename has an allowed extension.
-
-    Args:
-        filename: The name of the file to check.
-
-    Returns:
-        True if the filename has an allowed extension, False otherwise.
-    """
-
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS

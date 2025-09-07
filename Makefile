@@ -1,5 +1,7 @@
 # Makefile for Docovert
 
+export PYPANDOC_PANDOC=$(which pandoc)
+
 .PHONY: run run-docker build setup format
 
 # Run the server
