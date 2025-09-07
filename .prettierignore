@@ -1,7 +1,7 @@
 # Ignore artifacts:
 node_modules
 .venv
-static
+static/img
 package.json
 package-lock.json
 .prettierignore

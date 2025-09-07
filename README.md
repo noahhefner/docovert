@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="flaskr/static/logo.png" alt="Logo" width="150">
+  <img src="flaskr/static/img/logo.png" alt="Logo" width="150">
 </p>
       
 <h1 align="center">Docovert</h1>
