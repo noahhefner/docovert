@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="npm">
 </p>
 
-A simple web application to convert one or more .docx files into self-contained HTML files, with all images embedded directly into the document. The resulting files are bundled into a single .zip archive for easy download.
+A simple web application to convert one or more files into self-contained HTML files, with all images embedded directly into the document. The resulting files are bundled into a single .zip archive for easy download.
 
 > [!WARNING]  
 > This project is 100% vide-coded and not suitable for production.
@@ -23,17 +23,71 @@ A simple web application to convert one or more .docx files into self-contained 
 ## Features
 
 - **Drag-and-Drop Interface**: Easily add files by dragging them onto the upload area.
-- **Multiple File Uploads**: Select and convert multiple .docx files at once.
-- Secure Backend Conversion: Uses the powerful Pandoc engine in a secure, isolated process.
-- **Self-Contained HTML**: All images from the document are embedded as Base64 data directly into the HTML file, ensuring there are no broken links.
-- **Zipped Archive**: The converted HTML files are delivered in a single, convenient .zip archive.
-- **Clean & Responsive UI**: Built with Tailwind CSS for a modern look on any device.
+- **Multiple File Uploads**: Select and convert multiple files at once.
+- **Self-Contained HTML**: All images from the document are embedded as Base64 data directly into the HTML file.
+- **Zipped Archive**: The converted HTML files are delivered in a single, convenient `.zip` archive.
+- **Clean & Responsive UI**: Built with Tailwind CSS for a modern look.
 
 ## Core Technologies
 
 - **Backend**: Flask (Python)
 - **Frontend**: HTML, Tailwind CSS, Vanilla JavaScript
 - **Conversion Engine**: Pandoc
+
+## Supported Input File Formats
+
+Using Pandoc 3.8, the supported input file formats are:
+
+```plaintext
+biblatex
+bibtex
+bits
+commonmark
+commonmark_x
+creole
+csljson
+csv
+djot
+docbook
+docx
+dokuwiki
+endnotexml
+epub
+fb2
+gfm
+haddock
+html
+ipynb
+jats
+jira
+json
+latex
+man
+markdown
+markdown_github
+markdown_mmd
+markdown_phpextra
+markdown_strict
+mdoc
+mediawiki
+muse
+native
+odt
+opml
+org
+pod
+ris
+rst
+rtf
+t2t
+textile
+tikiwiki
+tsv
+twiki
+typst
+vimwiki
+xml
+```
 
 ## Prerequisites
 
@@ -100,6 +154,6 @@ make format
 
 ## Future Improvements
 
-- Support for more input formats (e.g., `.md`, `.rtf`, `.odt`).
+- Add tests for converting all file types
 - Add a real-time progress bar for uploads and conversions.
 - If only one file is converted, download it directly as `.html` instead of a `.zip`.
