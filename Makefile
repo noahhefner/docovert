@@ -2,7 +2,7 @@
 
 export PYPANDOC_PANDOC=$(which pandoc)
 
-.PHONY: run run-docker build setup format
+.PHONY: run run-docker build test setup format
 
 # Run the server
 run:
@@ -18,6 +18,11 @@ run-docker:
 build:
 	@echo "Building Docker image..."
 	docker build -t nhefner/docovert:latest .
+
+# Run Pytest
+test:
+	@echo "Running tests..."
+	uv run -m pytest
 
 # Install dependencies and tools
 setup:

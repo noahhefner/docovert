@@ -9,7 +9,7 @@ import pypandoc
 bp = Blueprint("convert", __name__, url_prefix="/convert")
 
 
-@bp.route("/", methods=["POST"])
+@bp.route("", methods=["POST"])
 def convert_files():
     """Handles file uploads, conversion, and response.
 

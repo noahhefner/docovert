@@ -143,6 +143,14 @@ make run-docker
 
 Navigate to `http://localhost:8080` in a web browser.
 
+## Run Tests
+
+Pytest is used for testing. Run the tests with:
+
+```sh
+make test
+```
+
 ## Code Formatting
 
 Format code with the `format` target:
