@@ -11,7 +11,7 @@ WORKDIR /app
 RUN uv venv
 
 # Copy pyproject.toml
-COPY pyproject.toml .
+COPY pyproject.toml uv.lock .
 
 # Install Python modules
 RUN uv sync --no-cache --no-group dev
@@ -19,6 +19,7 @@ RUN uv sync --no-cache --no-group dev
 # ------------------------------------------------------------------------------
 # Stage 2: Download Pandoc
 # ------------------------------------------------------------------------------
+
 FROM alpine:3.22 AS downloader
 
 # Set Pandoc version at build time

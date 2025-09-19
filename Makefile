@@ -2,7 +2,7 @@
 
 export PYPANDOC_PANDOC=$(which pandoc)
 
-.PHONY: run run-docker build test setup format
+.PHONY: run run-docker build test setup format push
 
 # Run the server
 run:
@@ -12,12 +12,17 @@ run:
 # Run the server with Docker
 run-docker:
 	@echo "Running Docovert with Docker..."
-	docker run -p 8080:8080 -d nhefner/docovert
+	docker run --name docovert -p 8080:8080 -d nhefner/docovert
 
 # Build Docker image
 build:
 	@echo "Building Docker image..."
 	docker build -t nhefner/docovert:latest .
+
+# Push image to DockerHub
+push:
+	@echo "Pushing image to Docker Hub..."
+	docker push nhefner/docovert:latest
 
 # Run Pytest
 test:

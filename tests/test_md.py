@@ -7,12 +7,12 @@ resources = Path(__file__).parent / "resources"
 
 def test_docx(client):
     """
-    Verify that uploading a DOCX file to /convert returns a ZIP containing the 
-    converted HTML.
+    Verify that uploading a markdown file to /convert returns a ZIP containing
+    the converted HTML.
     """
 
-    # Send POST request to /convert containing DOCX file
-    file_path = resources / "test.docx"
+    # Send POST request to /convert containing markdown file
+    file_path = resources / "test.md"
     data = {
         "files[]": (file_path.open("rb"), file_path.name)
     }
