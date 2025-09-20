@@ -65,5 +65,5 @@ USER convert
 # Expose port 8080
 EXPOSE 8080
 
-# Run the server with Waitress
+# Run the server with Gunicorn
 CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "flaskr:create_app()"]

@@ -8,14 +8,14 @@
   <img src="https://img.shields.io/badge/google%20gemini-8E75B2?style=for-the-badge&logo=google%20gemini&logoColor=white" alt="gemini">
   <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="python">
   <img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white" alt="flask">
-  <img src="https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white" alt="bootstrap">
+  <img src="https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="tailwindcss">
   <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="npm">
 </p>
 
 A simple web application to convert one or more files into self-contained HTML files, with all images embedded directly into the document. The resulting files are bundled into a single .zip archive for easy download.
 
 > [!WARNING]  
-> This project is 100% vide-coded and not suitable for production.
+> This project is mostly vibe-coded and not suitable for production.
 
 ![screenshot 1](demo.png)
 
@@ -97,6 +97,10 @@ Ensure the following tools are installed:
 - Pandoc
 - make
 - node
+
+Optional:
+
+- Docker
 
 ## Setup and Installation
 

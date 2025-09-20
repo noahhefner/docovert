@@ -6,10 +6,10 @@ from flask import Blueprint, jsonify, request, send_file
 from pathvalidate import sanitize_filename
 import pypandoc
 
-bp = Blueprint("convert", __name__, url_prefix="/convert")
+bp = Blueprint("convert", __name__)
 
 
-@bp.route("", methods=["POST"])
+@bp.route("/convert", methods=["POST"])
 def convert_files():
     """Handles file uploads, conversion, and response.
 
