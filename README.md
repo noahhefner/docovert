@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="npm">
 </p>
 
-A simple web application to convert one or more files into self-contained HTML files, with all images embedded directly into the document. The resulting files are bundled into a single .zip archive for easy download.
+A flexible web application to convert documents between multiple formats. Upload files in any of 50+ supported input formats and convert them to your choice of 11 output formats. All images are embedded directly into the output documents (for supported formats), and the resulting files are bundled into a single .zip archive for easy download.
 
 > [!WARNING]  
 > This project is mostly vibe-coded and not suitable for production.
@@ -23,8 +23,10 @@ A simple web application to convert one or more files into self-contained HTML f
 
 - **Drag-and-Drop Interface**: Easily add files by dragging them onto the upload area.
 - **Multiple File Uploads**: Select and convert multiple files at once.
-- **Self-Contained HTML**: All images from the document are embedded as Base64 data directly into the HTML file.
-- **Zipped Archive**: The converted HTML files are delivered in a single, convenient `.zip` archive.
+- **Flexible Output Formats**: Choose your desired output format from 11 supported options.
+- **Self-Contained Output**: For HTML, PDF, and EPUB formats, all images are embedded directly into the output document.
+- **Format Support**: Convert between 50+ input formats and 11 output formats.
+- **Zipped Archive**: The converted files are delivered in a single, convenient `.zip` archive.
 - **Clean & Responsive UI**: Built with Tailwind CSS for a modern look.
 
 ## Core Technologies
@@ -32,6 +34,24 @@ A simple web application to convert one or more files into self-contained HTML f
 - **Backend**: Flask (Python)
 - **Frontend**: HTML, Tailwind CSS, Vanilla JavaScript
 - **Conversion Engine**: Pandoc
+
+## Supported Output Formats
+
+Docovert can convert to the following output formats:
+
+| Format | Extension | Description |
+|--------|-----------|-------------|
+| HTML | `.html` | Web format with embedded resources |
+| Markdown | `.md` | Lightweight markup language |
+| Word Document | `.docx` | Microsoft Word format |
+| OpenDocument Text | `.odt` | LibreOffice/OpenOffice format |
+| reStructuredText | `.rst` | Python documentation standard |
+| LaTeX | `.tex` | Professional typesetting format |
+| Rich Text Format | `.rtf` | Text format with basic formatting |
+| E-book (EPUB) | `.epub` | E-book standard with embedded resources |
+| PDF | `.pdf` | Portable document format with embedded resources |
+| Plain Text | `.txt` | Simple unformatted text |
+| JSON | `.json` | JSON data format |
 
 ## Supported Input File Formats
 
@@ -167,4 +187,6 @@ make format
 
 - Add tests for converting all file types
 - Add a real-time progress bar for uploads and conversions.
-- If only one file is converted, download it directly as `.html` instead of a `.zip`.
+- If only one file is converted, download it directly as the output format instead of a `.zip`.
+- Add support for custom conversion options (e.g., CSS styling for HTML output, page size for PDF).
+- Implement file size limits and timeout handling for large conversions.

@@ -18,7 +18,7 @@
         />
         <h1 class="text-3xl font-bold text-gray-800">Docovert</h1>
         <p class="text-gray-500 mt-2">
-          Upload one or more documents to convert to HTML
+          Upload one or more documents to convert to your desired format
         </p>
       </div>
 
@@ -69,6 +69,20 @@
         <div id="file-list" class="space-y-4 mb-6">
           <!-- File items will be dynamically inserted here by JavaScript -->
         </div>
+
+        <!-- Output Format Selection -->
+        <div class="mb-6">
+          <label for="format-select" class="block text-sm font-semibold text-gray-800 mb-2">
+            Convert to format:
+          </label>
+          <select
+            id="format-select"
+            class="w-full border border-gray-300 rounded-lg p-3 bg-white text-gray-800 focus:outline-none focus:border-blue-500"
+          >
+            <option value="">Loading formats...</option>
+          </select>
+        </div>
+
         <div class="flex flex-col items-center space-y-4">
           <button
             id="convert-btn"
