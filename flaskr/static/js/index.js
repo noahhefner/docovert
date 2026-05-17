@@ -4,9 +4,11 @@ const fileInput = document.getElementById("file-input");
 const filesPreviewArea = document.getElementById("files-preview-area");
 const fileListContainer = document.getElementById("file-list");
 const addMoreBtn = document.getElementById("add-more-btn");
+const formatSelect = document.getElementById("format-select");
 
 // --- State Management ---
 let selectedFiles = [];
+let supportedFormats = [];
 
 // --- Utility Functions ---
 function formatBytes(bytes, decimals = 2) {
@@ -17,6 +19,53 @@ function formatBytes(bytes, decimals = 2) {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
+
+function formatLabel(format) {
+  const labels = {
+    html: "HTML",
+    markdown: "Markdown",
+    docx: "Word Document",
+    odt: "OpenDocument Text",
+    rst: "reStructuredText",
+    latex: "LaTeX",
+    rtf: "Rich Text Format",
+    epub: "E-book (EPUB)",
+    pdf: "PDF",
+    plain: "Plain Text",
+    json: "JSON",
+  };
+  return labels[format] || format.toUpperCase();
+}
+
+// --- Initialize supported formats ---
+async function loadSupportedFormats() {
+  try {
+    const response = await fetch("/formats");
+    if (!response.ok) throw new Error("Failed to load formats");
+    const data = await response.json();
+    supportedFormats = data.formats;
+    populateFormatSelect();
+  } catch (error) {
+    console.error("Error loading formats:", error);
+    formatSelect.innerHTML = '<option value="">Error loading formats</option>';
+  }
+}
+
+function populateFormatSelect() {
+  formatSelect.innerHTML = ""; // Clear existing options
+  supportedFormats.forEach((format) => {
+    const option = document.createElement("option");
+    option.value = format;
+    option.textContent = formatLabel(format);
+    if (format === "html") {
+      option.selected = true; // Default to HTML
+    }
+    formatSelect.appendChild(option);
+  });
+}
+
+// Load formats when the page loads
+document.addEventListener("DOMContentLoaded", loadSupportedFormats);
 
 // --- Core UI Functions ---
 function renderFileList() {
@@ -120,12 +169,20 @@ convertBtn.addEventListener("click", () => {
     return;
   }
 
+  const outputFormat = formatSelect.value;
+  if (!outputFormat) {
+    alert("Please select an output format.");
+    return;
+  }
+
   // Use the FormData API to package the files for sending
   const formData = new FormData();
   selectedFiles.forEach((file) => {
     // The 'files[]' name must match what the Flask backend expects
     formData.append("files[]", file);
   });
+  // Add the output format
+  formData.append("output_format", outputFormat);
 
   // Optional: Provide feedback to the user while uploading/converting
   convertBtn.disabled = true;
